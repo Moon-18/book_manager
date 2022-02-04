@@ -27,4 +27,7 @@ public interface IUserService extends IService<User> {
 
     //修改个人信息
     public int update(User user);
+
+    //分页查看全部用户信息,用于管理员管理
+    public List<User> list(int cur,int size);
 }

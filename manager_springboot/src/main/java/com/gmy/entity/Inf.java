@@ -2,6 +2,10 @@ package com.gmy.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -30,14 +34,13 @@ public class Inf implements Serializable {
     @ApiModelProperty("这一条借阅信息的状态，正常还是异常，字符串类型的，标明状态")
     private String state;
 
-    @ApiModelProperty("还书时间，允许为空，表示未还")
-    private LocalDate inDate;
+    @ApiModelProperty("还书时间，允许为空，表示未还;对应更新字段时间;自动填充")
+    @TableField(fill = FieldFill.UPDATE)
+    private LocalDateTime inDate;
 
-    @ApiModelProperty("借出时间，不允许为空")
-    private LocalDate outDate;
-
-    private String infcol;
-
+    @ApiModelProperty("借出时间，不允许为空;对应创建字段时间;自动填充")
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime outDate;
 
     public Long getId() {
         return id;
@@ -71,40 +74,31 @@ public class Inf implements Serializable {
         this.state = state;
     }
 
-    public LocalDate getInDate() {
+    public LocalDateTime getInDate() {
         return inDate;
     }
 
-    public void setInDate(LocalDate inDate) {
+    public void setInDate(LocalDateTime inDate) {
         this.inDate = inDate;
     }
 
-    public LocalDate getOutDate() {
+    public LocalDateTime getOutDate() {
         return outDate;
     }
 
-    public void setOutDate(LocalDate outDate) {
+    public void setOutDate(LocalDateTime outDate) {
         this.outDate = outDate;
-    }
-
-    public String getInfcol() {
-        return infcol;
-    }
-
-    public void setInfcol(String infcol) {
-        this.infcol = infcol;
     }
 
     @Override
     public String toString() {
         return "Inf{" +
-        "id=" + id +
-        ", bookId=" + bookId +
-        ", readerId=" + readerId +
-        ", state=" + state +
-        ", inDate=" + inDate +
-        ", outDate=" + outDate +
-        ", infcol=" + infcol +
-        "}";
+                "id=" + id +
+                ", bookId=" + bookId +
+                ", readerId=" + readerId +
+                ", state='" + state + '\'' +
+                ", inDate=" + inDate +
+                ", outDate=" + outDate +
+                '}';
     }
 }

@@ -1,10 +1,12 @@
 package com.gmy.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.gmy.entity.User;
 import com.gmy.mapper.UserMapper;
 import com.gmy.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -58,5 +60,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         int id=userMapper.getId(user.getAccount());
         user.setId(id);
         return userMapper.updateById(user);
+    }
+
+    @Override
+    public List<User> list(int cur, int size) {
+        Page<User> page=new Page<>(cur,size);
+        userMapper.selectPage(page,null);//记得别漏,排查了半小时
+//        page.getRecords().forEach(System.out::println);
+        return page.getRecords();
     }
 }

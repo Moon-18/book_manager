@@ -2,12 +2,23 @@ package com.gmy.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author 高明岩
@@ -28,7 +39,12 @@ public class Book implements Serializable {
     private String writer;
 
     @ApiModelProperty("入馆日期")
-    private LocalDate inDate;
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)//日期序列化反序列化注解
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;//注意类型不是localDate,排查了两个小时
 
     @ApiModelProperty("图书种类，科教文卫体与其他")
     private String kind;
@@ -69,12 +85,12 @@ public class Book implements Serializable {
         this.writer = writer;
     }
 
-    public LocalDate getInDate() {
-        return inDate;
+    public LocalDateTime getCreateTime() {
+        return createTime;
     }
 
-    public void setInDate(LocalDate inDate) {
-        this.inDate = inDate;
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
     }
 
     public String getKind() {
@@ -120,15 +136,15 @@ public class Book implements Serializable {
     @Override
     public String toString() {
         return "Book{" +
-        "id=" + id +
-        ", name=" + name +
-        ", writer=" + writer +
-        ", inDate=" + inDate +
-        ", kind=" + kind +
-        ", comment=" + comment +
-        ", allow=" + allow +
-        ", curNum=" + curNum +
-        ", sumNum=" + sumNum +
-        "}";
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", writer='" + writer + '\'' +
+                ", createTime=" + createTime +
+                ", kind='" + kind + '\'' +
+                ", comment='" + comment + '\'' +
+                ", allow=" + allow +
+                ", curNum=" + curNum +
+                ", sumNum=" + sumNum +
+                '}';
     }
 }

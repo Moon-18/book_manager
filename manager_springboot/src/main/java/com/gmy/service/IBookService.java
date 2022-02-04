@@ -21,10 +21,10 @@ public interface IBookService extends IService<Book> {
     public Integer create(Book book);
     //查看具体某本图书
     public Book retrieve(Integer id);
-    //查看全部图书
-    public List<Book> listAll();
-    //查看某一类图书
-    public List<Book> listKind(String kind);
+    //分页查看全部图书
+    public List<Book> listAll(int cur,int size);
+    //分页查看某一类图书
+    public List<Book> listKind(String kind,int cur,int size);
     //更新图书信息
     public Integer update(Book book);
     //删除图书
