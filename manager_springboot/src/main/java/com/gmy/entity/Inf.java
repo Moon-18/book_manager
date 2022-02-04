@@ -14,7 +14,7 @@ import io.swagger.annotations.ApiModelProperty;
  * 借阅信息管理
  * </p>
  *
- * @author 高明岩
+ * @author 如月十八
  * @since 2022-01-25
  */
 @ApiModel(value = "Inf对象", description = "借阅信息管理")

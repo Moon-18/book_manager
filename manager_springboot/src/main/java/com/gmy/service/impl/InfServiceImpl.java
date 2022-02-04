@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
  * 借阅信息管理 服务实现类
  * </p>
  *
- * @author 高明岩
+ * @author 如月十八
  * @since 2022-01-25
  */
 @Service

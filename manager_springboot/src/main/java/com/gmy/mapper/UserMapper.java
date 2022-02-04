@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  * 图书馆的管理员列表 Mapper 接口
  * </p>
  *
- * @author 高明岩
+ * @author 如月十八
  * @since 2022-01-25
  */
 @Repository

@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * 借阅信息管理 服务类
  * </p>
  *
- * @author 高明岩
+ * @author 如月十八
  * @since 2022-01-25
  */
 public interface IInfService extends IService<Inf> {

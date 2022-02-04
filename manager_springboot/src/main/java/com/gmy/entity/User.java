@@ -9,7 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
  * 图书馆的管理员列表
  * </p>
  *
- * @author 高明岩
+ * @author 如月十八
  * @since 2022-01-25
  */
 @ApiModel(value = "User对象", description = "图书馆的管理员列表")

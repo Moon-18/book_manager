@@ -11,7 +11,7 @@ import java.util.List;
  *  服务类
  * </p>
  *
- * @author 高明岩
+ * @author 如月十八
  * @since 2022-01-25
  */
 public interface IBookService extends IService<Book> {

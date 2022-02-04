@@ -25,7 +25,7 @@ import java.util.Objects;
  * 图书馆的管理员列表 前端控制器
  * </p>
  *
- * @author 高明岩
+ * @author 如月十八
  * @since 2022-01-25
  */
 @Api(value = "user",tags = {"用户操作接口"})
