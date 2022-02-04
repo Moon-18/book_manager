@@ -31,10 +31,10 @@ class IUserServiceTest {
 
     @Test
     void register() {
-        String account="user";
+        String account="1911834200@qq.com";
         String password="123456";
-        String type="user";
-        String name="user";
+        String type="admin";
+        String name="管理员";
         int res=userService.register(account,password,type,name);
         System.out.println(res);
     }

@@ -17,13 +17,6 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     public void insertFill(MetaObject metaObject) {
         log.info("start insert fill...");
 
-//        Date now = new Date(); // 创建一个Date对象，获取当前时间
-//        // 指定格式化格式
-//        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
-//        String s=f.format(now); // 将当前时间袼式化为指定的格式
-
-//        this.setFieldValByName("outDate",s,metaObject);
-//        this.setFieldValByName("createDate",s,metaObject);
         System.out.println(LocalDateTime.now());
         this.strictInsertFill(metaObject, "createTime", LocalDateTime.class, LocalDateTime.now());
         this.strictInsertFill(metaObject, "outDate", LocalDateTime.class, LocalDateTime.now());
@@ -33,6 +26,6 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void updateFill(MetaObject metaObject) {
         log.info("start update fill...");
-        this.setFieldValByName("inDate",new Date(),metaObject);
+        this.strictUpdateFill(metaObject, "inDate", LocalDateTime.class, LocalDateTime.now());
     }
 }

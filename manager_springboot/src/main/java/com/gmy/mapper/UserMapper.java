@@ -17,6 +17,6 @@ import org.springframework.stereotype.Repository;
 public interface UserMapper extends BaseMapper<User> {
 
     @Select("select id from user where ACCOUNT=#{account}")
-    public int getId(String account);
+    public Long getId(String account);
 
 }

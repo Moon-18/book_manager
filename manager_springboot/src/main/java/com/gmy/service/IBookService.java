@@ -23,10 +23,12 @@ public interface IBookService extends IService<Book> {
     public Book retrieve(Integer id);
     //分页查看全部图书
     public List<Book> listAll(int cur,int size);
-    //分页查看某一类图书
+    //分页查看某一类图书,那么这个数组大小就是这一类图书的数量
     public List<Book> listKind(String kind,int cur,int size);
     //更新图书信息
     public Integer update(Book book);
     //删除图书
     public Integer delete(Integer id);
+    //模糊查询
+    //
 }

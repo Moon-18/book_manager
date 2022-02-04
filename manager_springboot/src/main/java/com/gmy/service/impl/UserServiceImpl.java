@@ -26,7 +26,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public int loginIn(String account, String password,String type) {
-        Integer id=userMapper.getId(account);
+        Long id=userMapper.getId(account);
         User user=userMapper.selectById(id);
         String Account=user.getAccount();
         String Password=user.getPassword();
@@ -51,13 +51,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public User retrieve(String account) {
-        int id=userMapper.getId(account);
+        Long id=userMapper.getId(account);
         return userMapper.selectById(id);
     }
 
     @Override
     public int update(User user) {
-        int id=userMapper.getId(user.getAccount());
+        Long id=userMapper.getId(user.getAccount());
         user.setId(id);
         return userMapper.updateById(user);
     }
