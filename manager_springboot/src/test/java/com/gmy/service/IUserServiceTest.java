@@ -35,8 +35,8 @@ class IUserServiceTest {
         String password="123456";
         String type="admin";
         String name="管理员";
-        int res=userService.register(account,password,type,name);
-        System.out.println(res);
+//        int res=userService.register(account,password,type,name);
+//        System.out.println(res);
     }
 
     @Test

@@ -46,9 +46,11 @@ public class InfServiceImpl extends ServiceImpl<InfMapper, Inf> implements IInfS
         infMapper.selectPage(page,null);
         List<Inf> infList=page.getRecords();
         for (Inf inf :infList){
+            System.out.println(inf);
             //暂时没有转过弯来，用复杂的绕一下
             inf.setBookName(bookMapper.selectById(inf.getBookId()).getName());
             inf.setReaderName(userMapper.selectById(inf.getReaderId()).getName());
+            System.out.println(inf);
         }
         return infList;
     }

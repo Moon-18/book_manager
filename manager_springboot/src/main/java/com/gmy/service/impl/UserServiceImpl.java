@@ -39,13 +39,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public int register(String account, String password, String type,String name) {
-        User user=new User();
-        user.setAccount(account);
-        user.setPassword(password);
-        user.setType(type);
-        user.setName(name);
-//        System.out.println(user);
+    public int register(User user) {
         return userMapper.insert(user);
     }
 

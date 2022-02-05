@@ -31,7 +31,7 @@ import java.util.List;
  * @author 如月十八
  * @since 2022-01-25
  */
-@Api(value = "book",tags = {"书籍相关操作"})
+@Api(value = "book",tags = {"书籍操作接口"})
 @RestController
 @RequestMapping("/book")
 public class BookController {

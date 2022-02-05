@@ -20,7 +20,7 @@ public interface IUserService extends IService<User> {
     public int loginIn(String account,String password,String type);
 
     //注册功能
-    public int register(String account,String password,String type,String name);
+    public int register(User user);
 
     //查看个人信息
     public User retrieve(String account);

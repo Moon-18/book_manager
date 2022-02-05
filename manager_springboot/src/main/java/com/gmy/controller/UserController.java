@@ -8,12 +8,9 @@ import com.gmy.entity.User;
 import com.gmy.service.IUserService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -57,9 +54,9 @@ public class UserController {
         return objectMapper.writeValueAsString(result);
     }
     // http://localhost:8081/user/loginIn/1911834200@qq.com/admin/admin
-    @GetMapping("/loginIn/{account}/{password}/{type}")
-    public String loginIn(@PathVariable String account,@PathVariable String password,@PathVariable String type) throws JsonProcessingException {
-        int res=iUserService.loginIn(account, password, type);
+    @PostMapping("/loginIn")
+    public String loginIn(User user) throws JsonProcessingException {
+        int res=iUserService.loginIn(user.getAccount(), user.getPassword(), user.getType());
         Result result=new Result();
         if(res==1){
             //登录成功
@@ -72,9 +69,9 @@ public class UserController {
 
     // http://localhost:8081/user/register/1911834200@qq.com/admin/admin/测试一下
     // http://localhost:8081/user/register/123456@qq.com/admin/admin/测试一下
-    @GetMapping("/register/{account}/{password}/{type}/{name}")
-    public String register(@PathVariable String account,@PathVariable String password,@PathVariable String type,@PathVariable String name) throws JsonProcessingException {
-        int res=iUserService.register(account, password, type,name);
+    @PostMapping("/register")
+    public String register(User user) throws JsonProcessingException {
+        int res=iUserService.register(user);
         Result result=new Result();
         if(res==1){
             //登录成功
@@ -86,16 +83,12 @@ public class UserController {
     }
     //只让修改密码和用户名
     // http://localhost:8081/user/update/123456@qq.com/pwd/测试好几下
-    @GetMapping("/update/{account}/{password}/{name}")
-    public String update(@PathVariable String account, @PathVariable String password,@PathVariable String name) throws JsonProcessingException {
-        User user=new User();
-        user.setAccount(account);
-        user.setName(name);
-        user.setPassword(password);
+    @PostMapping("/update")
+    public String update(User user) throws JsonProcessingException {
         int res=iUserService.update(user);
         Result result=new Result();
         if(res==1){
-            //登录成功
+            //修改成功
             result=Result.succ(null);
         }else if(res==0){
             result=Result.fail("修改失败");
