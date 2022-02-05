@@ -109,9 +109,9 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import {request} from '@/network/request'
+import { ref,onMounted } from 'vue'
 import { Message, Menu as IconMenu, Setting,Avatar,Edit,Histogram } from '@element-plus/icons-vue'
-// import {Login} from '@/views/login.vue'
 import echarts from '@/views/chart/chart-reader.vue'
 import echarts2 from '@/views/chart/chart-book.vue'
 // export default{
@@ -130,6 +130,18 @@ const item = {
   address: 'No. 189, Grove St, Los Angeles',
 }
 const tableData = ref(Array(20).fill(item))
+onMounted(()=>{
+request({
+  url:'/book/listAll/1/10'
+  }).then((res:string)=>{
+    console.log(res);
+  }).catch((err:string)=>{
+    console.log(err)
+  })
+
+})
+//网络模块测试
+
 </script>
 
 <style src="../assets/css/normalize.css"></style>
