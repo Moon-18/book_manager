@@ -1,6 +1,7 @@
 package com.gmy.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gmy.common.lang.Result;
@@ -45,17 +46,11 @@ public class UserController {
     public String retrieve(@PathVariable String account) throws JsonProcessingException {
         User user=iUserService.retrieve(account);
         Result result=Result.succ(user);
-
-//        System.out.println(objectMapper.writeValueAsString(user));
-
-//        HttpServletResponse response = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getResponse();
-//        System.out.println("Default charset: " + response.getCharacterEncoding());
-
         return objectMapper.writeValueAsString(result);
     }
     // http://localhost:8081/user/loginIn/1911834200@qq.com/admin/admin
     @PostMapping("/loginIn")
-    public String loginIn(User user) throws JsonProcessingException {
+    public String loginIn(@RequestBody User user) throws JsonProcessingException {
         int res=iUserService.loginIn(user.getAccount(), user.getPassword(), user.getType());
         Result result=new Result();
         if(res==1){
@@ -70,11 +65,11 @@ public class UserController {
     // http://localhost:8081/user/register/1911834200@qq.com/admin/admin/测试一下
     // http://localhost:8081/user/register/123456@qq.com/admin/admin/测试一下
     @PostMapping("/register")
-    public String register(User user) throws JsonProcessingException {
+    public String register(@RequestBody User user) throws JsonProcessingException {
         int res=iUserService.register(user);
         Result result=new Result();
         if(res==1){
-            //登录成功
+            //注册成功
             result=Result.succ(null);
         }else if(res==0){
             result=Result.fail("注册失败,用户名重复");

@@ -1,29 +1,36 @@
 import { ref } from "vue";
 
-interface User {
-  email: string;
+interface User {//定义了一个接口
+  account: string;
   password: string;
-  code:string
+  Type: string;
+  // code:string
 }
 
-export const loginUser = ref<User>({
-  email: "",
+export const loginUser = ref<User>({//对应上面的类型
+  account: "",
   password: "",
-  code:""
+  Type:"",
+  // code:""
 });
 
-interface Rules {
-  email: {
+interface Rules {//定义规则的类型
+  account: {
     type: string;
     message: string;
     required: boolean;
     trigger: string;
   }[];
-  code: {
+  // code: {
+  //   message: string;
+  //   required: boolean;
+  //   trigger: string;
+  // }[];
+  Type:{
     message: string;
     required: boolean;
     trigger: string;
-  }[];
+  }[]
   password: ({
     required: boolean;
     message: string;
@@ -40,8 +47,8 @@ interface Rules {
 }
 
 // 校验规则
-export const rules = ref<Rules>({
-  email: [
+export const rules = ref<Rules>({//对应上面的类型
+  account: [
     {
       type: "email",
       message: "Email is incorrect...",
@@ -49,13 +56,20 @@ export const rules = ref<Rules>({
       trigger: "blur",
     },
   ],
-  code: [
-    {
+  // code: [
+  //   {
    
-      message: "验证码为空",
+  //     message: "验证码为空",
+  //     required: true,
+  //     trigger: "blur",
+  //   },
+  // ],
+  Type:[
+    {
       required: true,
+      message: "Type could not be empty...",
       trigger: "blur",
-    },
+    }
   ],
   password: [
     {

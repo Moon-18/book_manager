@@ -3,14 +3,10 @@
   <div class="center">
    <el-card class="box-card">
     <template #header>
-      <div class="card-header">
-        
-       <span>归还图书</span> 
- <el-button type="danger" plain>异常情况上报</el-button>
- <el-button class="button" type="text">确认归还</el-button>
-  
-       
-        
+      <div class="card-header">  
+        <span>归还图书</span> 
+        <el-button type="danger" plain>异常情况上报</el-button>
+        <el-button class="button" type="text">确认归还</el-button>       
       </div>
     </template>
    
@@ -24,15 +20,15 @@
   >
     <el-form-item label="读者姓名" prop="name">
       <el-row>
-    <el-col :span="12"><el-input v-model="ruleForm.name"></el-input></el-col>
-  </el-row>
+        <el-col :span="12"><el-input v-model="ruleForm.name"></el-input></el-col>
+      </el-row>
     </el-form-item>
 
   <el-form-item label="图书名称" prop="name">
       <el-row>
-    <el-col :span="12"><el-input v-model="ruleForm.name"></el-input></el-col>
-  </el-row>
-    </el-form-item>
+       <el-col :span="12"><el-input v-model="ruleForm.name"></el-input></el-col>
+      </el-row>
+  </el-form-item>
     
     
     <el-form-item label="借阅时间" required>
@@ -47,7 +43,6 @@
         </el-form-item>
       </el-col>
       <el-col class="text-center" :span="1">
-        <!-- <span class="text-gray-500">-</span> -->
       </el-col>
       <el-col :span="4">
         <el-form-item prop="date2">

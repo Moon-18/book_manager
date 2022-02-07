@@ -1,5 +1,4 @@
 <template>
-<!-- <p>增加图书</p> -->
 <br>
   <el-form
     ref="ruleFormRef"
@@ -12,12 +11,6 @@
     <el-form-item label="bookName" prop="bookName">
       <el-row><el-col :span="12"><el-input v-model="ruleForm.name"></el-input></el-col></el-row>   
     </el-form-item>
-    <!-- <el-form-item label="bookWriter" prop="bookWriter">
-      <el-select v-model="ruleForm.region" placeholder="Activity zone">
-        <el-option label="Zone one" value="shanghai"></el-option>
-        <el-option label="Zone two" value="beijing"></el-option>
-      </el-select>
-    </el-form-item> -->
     <el-form-item label="bookWriter" prop="bookWriter">
       <el-row><el-col :span="12"><el-input v-model="ruleForm.name"></el-input></el-col></el-row>   
     </el-form-item>
@@ -34,7 +27,6 @@
         </el-form-item>
       </el-col>
       <el-col class="text-center" :span="1">
-        <!-- <span class="text-gray-500">-</span> -->
       </el-col>
       <el-col :span="4">
         <el-form-item prop="date2">
@@ -58,12 +50,6 @@
         <el-checkbox label="体育" name="type"></el-checkbox>
       </el-checkbox-group>
     </el-form-item>
-    <!-- <el-form-item label="类别" prop="resource">
-      <el-radio-group v-model="ruleForm.resource">
-        <el-radio label="普通书籍"></el-radio>
-        <el-radio label="珍贵古籍"></el-radio>
-      </el-radio-group>
-    </el-form-item> -->
     <el-form-item label="Comment" >
       <el-input v-model="ruleForm.desc" type="textarea"></el-input>
     </el-form-item>

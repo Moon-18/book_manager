@@ -31,12 +31,21 @@ class IUserServiceTest {
 
     @Test
     void register() {
-        String account="1911834200@qq.com";
-        String password="123456";
-        String type="admin";
-        String name="管理员";
-//        int res=userService.register(account,password,type,name);
-//        System.out.println(res);
+//        String account="1911834200@qq.com";
+//        String password="123456";
+//        String type="admin";
+//        String name="管理员";
+////        int res=userService.register(account,password,type,name);
+////        System.out.println(res);
+        //null测试
+        String s=null;
+        if(s==null){
+            System.out.println("空");
+            return;
+        }
+        if(s.equals("hello")){
+            System.out.println("right");
+        }
     }
 
     @Test

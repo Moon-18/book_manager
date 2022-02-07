@@ -1,5 +1,4 @@
 <template>
-<!-- <span>全部书籍信息</span> -->
 <el-row :gutter="10">
   <el-col :span="6"></el-col>
 </el-row>

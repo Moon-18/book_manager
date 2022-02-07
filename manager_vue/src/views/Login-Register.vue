@@ -29,7 +29,7 @@
       <div class="panel right-panel">
         <div class="content">
           <h3>SDU 计算机科学与技术学院 数据库课程设计</h3>
-          <p>读书破万卷，下笔如有神。 —— 杜甫 </p>
+          <p>读书破万卷,下笔如有神 —— 杜甫 </p>
           <button @click="signUpMode = !signUpMode" class="btn transparent">
             登录
           </button>
@@ -39,11 +39,13 @@
     </div>
   </div>
 </template>
+
 <script lang="ts">
 import { ref, getCurrentInstance } from "vue";
 import { loginUser, rules } from "@/utils/loginValidators";
 import { registerUser, registerRules } from "@/utils/registerValidators";
-import LoginForm from "@/components/LoginForm.vue";
+// import LoginForm from "@/views/login/LoginForm.vue";
+import LoginForm from '@/components/LoginForm.vue'
 import RegisterForm from "@/components/RegisterForm.vue";
 export default {
   name: "LoginRegister",
@@ -63,6 +65,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .container {
   position: relative;

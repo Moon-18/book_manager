@@ -12,9 +12,9 @@
         placeholder="Enter UserName..."
       ></el-input>
     </el-form-item>
-    <el-form-item label="邮箱" prop="email">
+    <el-form-item label="账号" prop="account">
       <el-input
-        v-model="registerUser.email"
+        v-model="registerUser.account"
         placeholder="Enter Email..."
       ></el-input>
     </el-form-item>
@@ -33,20 +33,15 @@
       ></el-input>
     </el-form-item>
 
-    <el-row>
-    <el-col :span="2"><div class="grid-content bg-purple"></div></el-col>
-    <el-col :span="6"><div class="grid-content bg-purple-light">
-      <el-switch
-    v-model="status"
-    class="mb-2"
-    active-text="管理员"
-    inactive-text="用户"
-  >
-  </el-switch>
-      </div></el-col>
-  </el-row>
+<el-form-item label="类型" prop="Type">
+      <el-radio-group v-model="registerUser.Type">
+        <el-radio label="user">用户</el-radio>
+        <el-radio label="admin">管理员</el-radio>
+        <!-- 1911834200@qq.com -->
+      </el-radio-group>
+    </el-form-item>
 
- <el-form-item label="验证码" prop="code">
+ <!-- <el-form-item label="验证码" prop="code">
       <el-row>
     <el-col :span="12">
       <el-input
@@ -60,7 +55,7 @@
       <el-image :src="url"></el-image>
       </el-col>   
     </el-row>
-    </el-form-item>
+    </el-form-item> -->
 
     <el-form-item>
       <el-button
@@ -87,13 +82,14 @@ export default {
       required: true,
     },
   },
-  setup() {
+  setup(props:any) {
     // @ts-ignore
     const { ctx } = getCurrentInstance();
     const status = ref(true)
     const handleRegister = (formName: string) => {
       ctx.$refs[formName].validate((valid: boolean) => {
         if (valid) {
+
           alert("submit!");
         } else {
           console.log("error submit!!");

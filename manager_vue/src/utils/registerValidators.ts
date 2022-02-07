@@ -2,20 +2,20 @@ import { ref } from "vue";
 
 interface RegisterUser {
   name: string;
-  email: string;
+  account: string;
   password: string;
   password2: string;
-  role: string;
-  code:string
+  Type: [];
+  // code:string
 }
 
 export const registerUser = ref<RegisterUser>({
   name: "",
-  email: "",
+  account: "",
   password: "",
   password2: "",
-  role: "",
-  code:""
+  Type: [],
+  // code:""
 });
 
 interface RegisterRules {
@@ -29,17 +29,23 @@ interface RegisterRules {
     message: string;
     trigger: string;
   })[];
-  email: {
+  account: {
     type: string;
     message: string;
     required: boolean;
     trigger: string;
   }[];
-  code: {
-    type: string;
-    message: string;
-    required: boolean;
-    trigger: string;
+  // code: {
+  //   type: string;
+  //   message: string;
+  //   required: boolean;
+  //   trigger: string;
+  // }[];
+  Type:{
+    // type:string,
+    required:boolean
+    trigger:string;
+    message:string
   }[];
   password: ({
     required: boolean;
@@ -92,7 +98,7 @@ export const registerRules = ref<RegisterRules>({
       trigger: "blur",
     },
   ],
-  email: [
+  account: [
     {
       type: "email",
       message: "Email is incorrect...",
@@ -100,14 +106,20 @@ export const registerRules = ref<RegisterRules>({
       trigger: "blur",
     },
   ],
-  code: [
+  // code: [
+  //   {
+  //     type: "string",
+  //     message: "code",
+  //     required: true,
+  //     trigger: "blur",
+  //   },
+  // ],
+  Type:[
     {
-      type: "string",
-      message: "code",
-      required: true,
-      trigger: "blur",
-    },
-  ],
+      required:true,
+      message:'Type could not be empty',
+      trigger:"blur",
+  }],
   password: [
     {
       required: true,

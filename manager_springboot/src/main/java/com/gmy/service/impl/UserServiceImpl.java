@@ -26,11 +26,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public int loginIn(String account, String password,String type) {
+
         Long id=userMapper.getId(account);
         User user=userMapper.selectById(id);
+        if(user==null){return 0;}
         String Account=user.getAccount();
         String Password=user.getPassword();
         String Type=user.getType();
+        if(Account==null||Password==null||Type==null){
+            return 0;
+        }
         if(Account.equals(account)&&Password.equals(password)&&Type.equals(type)){
             return 1;
         }else{

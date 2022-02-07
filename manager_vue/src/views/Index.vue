@@ -91,21 +91,11 @@
 
       <!-- 主界面 height:1600;height:800 style="height:800;background-color:black" -->
       <el-main style="height:800;overflow-x:hidden">
-        <!-- <el-scrollbar>
-          <el-table :data="tableData">
-            <el-table-column prop="date" label="Date" width="140">
-            </el-table-column>
-            <el-table-column prop="name" label="Name" width="120">
-            </el-table-column>
-            <el-table-column prop="address" label="Address"> </el-table-column>
-          </el-table>
-        </el-scrollbar> -->
         <router-view></router-view>
       </el-main>
 
     </el-container>
   </el-container>
-  <!-- <router-view/> -->
 </template>
 
 <script lang="ts" setup>
@@ -114,32 +104,22 @@ import { ref,onMounted } from 'vue'
 import { Message, Menu as IconMenu, Setting,Avatar,Edit,Histogram } from '@element-plus/icons-vue'
 import echarts from '@/views/chart/chart-reader.vue'
 import echarts2 from '@/views/chart/chart-book.vue'
-// export default{
-//   name:'Index',
-//   components:{chart},
-//   setup(){
-
-//   }
-// }
-// components:{
-//   chart
-// }
 const item = {
   date: '2016-05-02',
   name: 'Tom',
   address: 'No. 189, Grove St, Los Angeles',
 }
 const tableData = ref(Array(20).fill(item))
-onMounted(()=>{
-request({
-  url:'/book/listAll/1/10'
-  }).then((res:string)=>{
-    console.log(res);
-  }).catch((err:string)=>{
-    console.log(err)
-  })
+// onMounted(()=>{
+// request({
+//   url:'/book/listAll/1/10'
+//   }).then((res:any)=>{
+//     console.log(res);
+//   }).catch((err:any)=>{
+//     console.log(err)
+//   })
 
-})
+// })
 //网络模块测试
 
 </script>
