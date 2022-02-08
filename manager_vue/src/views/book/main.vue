@@ -15,12 +15,12 @@
   </el-row>
 
   <el-table :data="tableData" style="width: 100%">
-    <el-table-column fixed prop="bookName" label="bookName" width="150" />
-    <el-table-column prop="bookWriter" label="bookWriter" width="120" />
-    <el-table-column prop="bookKind" label="bookKind" width="120" />
-    <el-table-column prop="bookDate" label="bookDate" width="120" />
-    <el-table-column prop="allowOut" label="allowOut" width="120" />
-    <el-table-column prop="bookComment" label="bookComment" width="600" />
+    <el-table-column prop="name" label="名称" width="150" />
+    <el-table-column prop="writer" label="作者" width="120" />
+    <el-table-column prop="createTime" label="入馆时间" width="120" />
+    <el-table-column prop="kind" label="种类" width="120" />
+    <el-table-column prop="allow" label="权限" width="120" />
+    <el-table-column prop="comment" label="简评" width="480" />
     <el-table-column fixed="right" label="Operations" width="150">
       <template #default>
         <el-button type="text" size="small" @click="handleClick"
@@ -35,28 +35,28 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { onMounted, reactive, ref} from 'vue'
 import { Calendar, Search } from '@element-plus/icons-vue'
+import {listAll} from '@/network/network'
 const input1 = ref('')
 const input2 = ref('')
 const input3 = ref('')
 const input4 = ref('')
+let tableData = []
+onMounted(()=>{
+  // console.log("hello")
+  listAll(1,10).then(res=>{
+    console.log(res.data)
+    tableData.push(res.data)
+    console.log(tableData)
+  })
 
+})
 const handleClick = () => {
   console.log('click')
 }
 
-const tableData = [
-  {
-    bookName: '平凡的世界',
-    bookWriter: '路遥',
-    bookKind: '文化',
-    bookDate: '2000',
-    allowOut:'right',
-    bookComment: '《平凡的世界》是中国作家路遥创作的一部全景式地表现中国当代城乡社会生活的百万字长篇小说。全书共三部。1986年12月首次出版。该书以中国70年代中期到80年代中期十年间为背景，通过复杂的矛盾纠葛，以孙少安和孙少平两兄弟为中心，刻画了当时社会各阶层众多普通人的形象；劳动与爱情、挫折与追求、痛苦与欢乐、日常生活与巨大社会冲突纷繁地交织在一起，深刻地展示了普通人在大时代历史进程中所走过的艰难曲折的道路。',
-    tag: 'Home',
-  }
-]
+
 </script>
 
 <style>

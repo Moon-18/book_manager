@@ -33,7 +33,7 @@
       ></el-input>
     </el-form-item>
 
-<el-form-item label="类型" prop="Type">
+    <el-form-item label="类型" prop="Type">
       <el-radio-group v-model="registerUser.Type">
         <el-radio label="user">用户</el-radio>
         <el-radio label="admin">管理员</el-radio>
@@ -41,7 +41,7 @@
       </el-radio-group>
     </el-form-item>
 
- <!-- <el-form-item label="验证码" prop="code">
+    <!-- <el-form-item label="验证码" prop="code">
       <el-row>
     <el-col :span="12">
       <el-input
@@ -70,7 +70,10 @@
 
 <script lang="ts">
 import { ref, getCurrentInstance } from "vue";
-// import axios from 'axios' // 仅限在当前组件使用
+import { useRouter } from "vue-router"; //路由
+import { register } from "@/network/network";
+import { registerUser } from "@/utils/registerValidators";
+import {news} from '@/utils/cartoon'
 export default {
   props: {
     registerUser: {
@@ -82,15 +85,43 @@ export default {
       required: true,
     },
   },
-  setup(props:any) {
+  setup(props: any) {
     // @ts-ignore
     const { ctx } = getCurrentInstance();
-    const status = ref(true)
+    const status = ref(true);
+    const router = useRouter();
     const handleRegister = (formName: string) => {
       ctx.$refs[formName].validate((valid: boolean) => {
         if (valid) {
+          //进行网络请求
+          register(
+            registerUser.value.account,
+            registerUser.value.password,
+            registerUser.value.Type,
+            registerUser.value.name
+          )
+            .then((res) => {
+              console.log(res);
+              // 此处res 为返回的数据，将返回的数据进行处理显示
+              let code = res.code;
+              console.log(code + "读取到的状态码");
+              if (code == 200) {
+                console.log("注册成功 ");
+                //结果正确
+                news("注册成功","success")
+                router.push({ name: "Index" });
+              } else {
+                console.log("注册失败");
+                news("注册失败","error")
+              }
+            })
+            .catch((err) => {
+              let code = err.data.code;
+              console.log(code + "读取到的状态码");
+              console.log("登录错误");
+            });
 
-          alert("submit!");
+          // alert("submit!");
         } else {
           console.log("error submit!!");
           return false;
@@ -98,7 +129,7 @@ export default {
       });
     };
 
-    return { handleRegister,status };
+    return { handleRegister, status };
   },
 };
 </script>

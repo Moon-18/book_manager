@@ -19,16 +19,19 @@ export const registerUser = ref<RegisterUser>({
 });
 
 interface RegisterRules {
-  name: ({
-    message: string;
-    required: boolean;
-    trigger: string;
-  } | {
-    min: number;
-    max: number;
-    message: string;
-    trigger: string;
-  })[];
+  name: (
+    | {
+        message: string;
+        required: boolean;
+        trigger: string;
+      }
+    | {
+        min: number;
+        max: number;
+        message: string;
+        trigger: string;
+      }
+  )[];
   account: {
     type: string;
     message: string;
@@ -41,37 +44,42 @@ interface RegisterRules {
   //   required: boolean;
   //   trigger: string;
   // }[];
-  Type:{
+  Type: {
     // type:string,
-    required:boolean
-    trigger:string;
-    message:string
+    required: boolean;
+    trigger: string;
+    message: string;
   }[];
-  password: ({
-    required: boolean;
-    message: string;
-    trigger: string;
-  } | {
-    min: number;
-    max: number;
-    message: string;
-    trigger: string;
-  })[];
-  password2: ({
-    required: boolean;
-    message: string;
-    trigger: string;
-
-  } | {
-    min: number;
-    max: number;
-    message: string;
-    trigger: string;
-
-  } | {
-    validator: (rule: RegisterRules, value: string, callback: any) => void;
-    trigger: string;
-  })[];
+  password: (
+    | {
+        required: boolean;
+        message: string;
+        trigger: string;
+      }
+    | {
+        min: number;
+        max: number;
+        message: string;
+        trigger: string;
+      }
+  )[];
+  password2: (
+    | {
+        required: boolean;
+        message: string;
+        trigger: string;
+      }
+    | {
+        min: number;
+        max: number;
+        message: string;
+        trigger: string;
+      }
+    | {
+        validator: (rule: RegisterRules, value: string, callback: any) => void;
+        trigger: string;
+      }
+  )[];
 }
 
 const validatePass2 = (rule: RegisterRules, value: string, callback: any) => {
@@ -114,12 +122,13 @@ export const registerRules = ref<RegisterRules>({
   //     trigger: "blur",
   //   },
   // ],
-  Type:[
+  Type: [
     {
-      required:true,
-      message:'Type could not be empty',
-      trigger:"blur",
-  }],
+      required: true,
+      message: "Type could not be empty",
+      trigger: "blur",
+    },
+  ],
   password: [
     {
       required: true,
@@ -146,6 +155,5 @@ export const registerRules = ref<RegisterRules>({
       trigger: "blur",
     },
     { validator: validatePass2, trigger: "blur" },
-  ]
-
+  ],
 });

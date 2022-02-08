@@ -45,7 +45,9 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = RuntimeException.class)
     public Result handler(RuntimeException e) throws IOException {
-        log.error("运行时异常:-------------->",e);
-        return Result.fail(e.getMessage());
+//        log.error("运行时异常:-------------->",e);
+//        return Result.fail(e.getMessage());
+        log.error("运行时异常");
+        return Result.fail("操作失败");
     }
 }

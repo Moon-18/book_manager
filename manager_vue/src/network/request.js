@@ -26,6 +26,7 @@ export function request(config) {
 
         console.log('响应拦截err: ');
         console.log(err)
+        return err//之前是未返回错误数据,现在返回了,使得程序也能继续执行
   })
 
   // 3.发送真正的网络请求
