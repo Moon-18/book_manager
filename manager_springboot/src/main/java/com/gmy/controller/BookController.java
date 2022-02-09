@@ -9,7 +9,6 @@ import com.gmy.entity.User;
 import com.gmy.mapper.BookMapper;
 import com.gmy.service.IBookService;
 import io.swagger.annotations.*;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
@@ -45,9 +44,9 @@ public class BookController {
             @ApiResponse(code=200,message = "操作成功",response = User.class)
     })
     @PostMapping("/create")
-    public String create(Book book) throws JsonProcessingException {
+    public String create(@RequestBody Book book) throws JsonProcessingException {
         //添加时注意不需要带上时间，后台自动加入，排查1.5h
-//        System.out.println(book);
+        System.out.println(book);
         int res=bookService.create(book);
         Result result;
         if(res==1){

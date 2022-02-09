@@ -1,5 +1,6 @@
 package com.gmy.service;
 
+import com.gmy.common.lang.Result;
 import com.gmy.entity.Inf;
 import com.gmy.service.impl.InfServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -14,27 +15,29 @@ import static org.junit.jupiter.api.Assertions.*;
 class IInfServiceTest {
     @Autowired
     InfServiceImpl infService;
+
     @Test
     void create() {
-        Inf inf=new Inf();
-        inf.setBookId(1489485982758727681L);
-        inf.setReaderId(1489590815759024129L);
-        infService.create(inf);
+        Inf inf = new Inf();
+        inf.setReaderName("张三");
+        inf.setBookName("1984");
+        System.out.println(infService.create(inf));
     }
 
     @Test
     void update() {
-        Inf inf=new Inf();
-        inf.setId(1489594293436817410L);
-        inf.setBookId(1489485982758727681L);
-        inf.setReaderId(1489590815759024129L);
-        inf.setState("借出中");
-        infService.update(inf);
+        Inf inf = new Inf();
+        inf.setBookName("红楼梦");
+        inf.setReaderName("张三");
+        Result result = infService.update(inf);
+        System.out.println(result);
     }
 
     @Test
     void listAll() {
-        List<Inf> infList=infService.listAll(1,1);
-        infList.forEach(System.out::println);
+//        List<Inf> infList = infService.listAll(1, 1);
+//        infList.forEach(System.out::println);
+        Result result = infService.listAll(1, 10);
+        System.out.println(result);
     }
 }

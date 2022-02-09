@@ -16,6 +16,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -88,6 +89,12 @@ public class UserController {
         }else if(res==0){
             result=Result.fail("修改失败");
         }
+        return objectMapper.writeValueAsString(result);
+    }
+    @GetMapping("/listAll/{cur}/{size}")
+    public String listAll(@PathVariable int cur,@PathVariable int size) throws JsonProcessingException {
+        List<User> users=iUserService.list(cur,size);
+        Result result=Result.succ(users);
         return objectMapper.writeValueAsString(result);
     }
 }

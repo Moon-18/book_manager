@@ -68,7 +68,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "book2",
         name: "book-add",
-        component: () => import("@/views/book/add.vue"),
+        component: () => import("@/views/book/addBook.vue"),
       },
     ],
   },

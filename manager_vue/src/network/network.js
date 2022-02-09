@@ -4,6 +4,7 @@ import { request } from "./request"; //注意request.js的相对路径问题
 // import { loginUser} from "@/utils/loginValidators";
 import { registerUser } from "@/utils/registerValidators";
 import Qs from "qs";
+import { createInferTypeNode } from "typescript";
 
 //1.用户相关网络请求
 //1.1登录post
@@ -39,15 +40,79 @@ export function register(account, password, type, name) {
     },
   });
 }
-//2.书籍相关网络请求
-export function listAll(cur,size){
+//1.3读取全部用户信息
+export function listAllUser(cur,size){
   return request({
-    url: `/book/listAll/${cur}/${size}`,//es6语法,用反单引号拼接路径
+    url: `/user/listAll/${cur}/${size}`, //es6语法,用反单引号拼接路径
     method: "get",
   });
 }
+//2.书籍相关网络请求
+export function listAllBook(cur, size) {
+  return request({
+    url: `/book/listAll/${cur}/${size}`, //es6语法,用反单引号拼接路径
+    method: "get",
+  });
+}
+export function createBook(name, writer, kind, allow,sumNum,comment) {
+  return request({
+    url: "/book/create",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "post",
+    data: {
+      name:name,
+      writer:writer,
+      kind:kind,
+      allow:allow,
+      sumNum:sumNum,
+      curNum:sumNum,
+      comment:comment
+    },
+  });
+}
 //3.借阅相关网络请求
-
+//3.1增加借阅信息
+export function createInf(readerName,bookName,message) {
+  console.log(readerName,bookName,message)
+  return request({
+    url: "/inf/create",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "post",
+    data: {
+      readerName: readerName,
+      bookName: bookName,
+      message: message
+    },
+  });
+}
+//3.2更新借阅信息,也就是还书
+export function updateInf(readerName, bookName,state, message) {
+  console.log(readerName, bookName, state,message);
+  return request({
+    url: "/inf/update",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "post",
+    data: {
+      readerName: readerName,
+      bookName: bookName,
+      state:state,
+      message: message,
+    },
+  });
+}
+//3.3请求全部借阅信息
+export function listAllInf(cur, size) {
+  return request({
+    url: `/inf/listAll/${cur}/${size}`, //es6语法,用反单引号拼接路径
+    method: "get",
+  });
+}
 //1. get请求---获取首页的多个数据
 export function getHomeMultidata() {
   return request({

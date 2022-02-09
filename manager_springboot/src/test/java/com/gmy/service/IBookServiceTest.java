@@ -1,6 +1,9 @@
 package com.gmy.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.gmy.entity.Book;
+import com.gmy.entity.Inf;
+import com.gmy.mapper.BookMapper;
 import com.gmy.service.impl.BookServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,14 +14,18 @@ import java.util.List;
 import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
 class IBookServiceTest {
 
     @Autowired
     BookServiceImpl bookService;
+    @Autowired
+    BookMapper bookMapper;
+
     @Test
     void create() {
-        Book book=new Book();
+        Book book = new Book();
         book.setName("中国历代政治得失\n");
         book.setWriter("钱穆\n");
         book.setKind("文化");
@@ -47,6 +54,15 @@ class IBookServiceTest {
 
     @Test
     void retrieve() {
+        Inf inf = new Inf();
+        inf.setReaderName("张三");
+        inf.setBookName("1984");
+        QueryWrapper<Book> wrapper1 = new QueryWrapper<>();
+        System.out.println("书名" + inf.getBookName());
+//        wrapper1.eq("name", inf.getBookName());
+        wrapper1.eq("name", "飘");
+        Book book = bookMapper.selectOne(wrapper1);
+        System.out.println("图书" + book);
     }
 
     @Test
@@ -55,7 +71,7 @@ class IBookServiceTest {
 
     @Test
     void listKind() {
-        List<Book> books=bookService.listKind("教育",1,5);
+        List<Book> books = bookService.listKind("教育", 1, 5);
         books.forEach(System.out::println);
     }
 

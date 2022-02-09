@@ -5,176 +5,148 @@
     <template #header>
       <div class="card-header">  
         <span>归还图书</span> 
-        <el-button type="danger" plain>异常情况上报</el-button>
-        <el-button class="button" type="text">确认归还</el-button>       
+        <el-button type="danger" plain @click="submit(`异常`)">异常情况上报</el-button>
+        <el-button class="button" type="text" @click="submit(`归还`)">确认归还</el-button>       
       </div>
     </template>
    
-    <el-form
-    ref="ruleFormRef"
-    :model="ruleForm"
-    :rules="rules"
-    label-width="120px"
-    class="demo-ruleForm"
-    :size="formSize"
-  >
-    <el-form-item label="读者姓名" prop="name">
-      <el-row>
-        <el-col :span="12"><el-input v-model="ruleForm.name"></el-input></el-col>
-      </el-row>
-    </el-form-item>
-
-  <el-form-item label="图书名称" prop="name">
-      <el-row>
-       <el-col :span="12"><el-input v-model="ruleForm.name"></el-input></el-col>
-      </el-row>
-  </el-form-item>
-    
-    
-    <el-form-item label="借阅时间" required>
-      <el-col :span="4">
-        <el-form-item prop="date1">
-          <el-date-picker
-            v-model="ruleForm.date1"
-            type="date"
-            placeholder="Pick a date"
-            style="width: 100%"
-          ></el-date-picker>
+      <el-form
+        ref="ruleFormRef"
+        :model="ruleForm"
+        :rules="rules"
+        label-width="120px"
+        class="demo-ruleForm"
+        :size="formSize"
+      >
+        <el-form-item label="读者姓名" prop="readerName">
+          <el-row>
+            <el-col :span="18"
+              ><el-input v-model="ruleForm.readerName"></el-input
+            ></el-col>
+          </el-row>
         </el-form-item>
-      </el-col>
-      <el-col class="text-center" :span="1">
-      </el-col>
-      <el-col :span="4">
-        <el-form-item prop="date2">
-          <el-time-picker
-            v-model="ruleForm.date2"
-            placeholder="Pick a time"
-            style="width: 100%"
-          ></el-time-picker>
+
+        <el-form-item label="图书名称" prop="bookName">
+          <el-row>
+            <el-col :span="18"
+              ><el-input v-model="ruleForm.bookName"></el-input
+            ></el-col>
+          </el-row>
         </el-form-item>
-      </el-col>
-    </el-form-item>
 
-    <el-form-item label="注意"> <span style="color:#67C23A">借阅最长时间为两个月</span></el-form-item>
+        <el-form-item label="借阅时间">
+          <el-row>
+            <el-col :span="24"
+              ><span>{{ time }}</span></el-col
+            >
+          </el-row>
+        </el-form-item>
 
-    <el-form-item label="网上借阅服务" prop="delivery">
-      <el-switch v-model="ruleForm.delivery"></el-switch>
-    </el-form-item>
-    <el-form-item label="图书种类" prop="type">
-      <el-checkbox-group v-model="ruleForm.type">
-        <el-checkbox label="科技" name="type"></el-checkbox>
-        <el-checkbox label="教育" name="type"></el-checkbox>
-        <el-checkbox label="文化" name="type"></el-checkbox>
-        <el-checkbox label="卫生" name="type"></el-checkbox>
-        <el-checkbox label="体育" name="type"></el-checkbox>
-      </el-checkbox-group>
-    </el-form-item>
-    <el-form-item label="类别" prop="resource">
-      <el-radio-group v-model="ruleForm.resource">
-        <el-radio label="普通书籍"></el-radio>
-        <el-radio label="珍贵古籍"></el-radio>
-      </el-radio-group>
-    </el-form-item>
-    <el-form-item label="备注" >
-      <el-input v-model="ruleForm.desc" type="textarea"></el-input>
-    </el-form-item>
-  </el-form>
+        <el-form-item label="借阅状态">
+          <el-row>
+            <el-col :span="24"><span>正在办理外借手续</span></el-col>
+          </el-row>
+        </el-form-item>
 
-  </el-card>
-
-</div>
-
- 
+        <el-form-item label="备注">
+          <el-input v-model="ruleForm.comment" type="textarea"></el-input>
+        </el-form-item>
+      </el-form>
+    </el-card>
+  </div>
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from 'vue'
+import { reactive, ref } from "vue";
 // More info see https://github.com/element-plus/element-plus/blob/dev/docs/examples/form/utils.ts
 // import { resetForm, submitForm } from './utils'//自定义规则
-import type { ElForm } from 'element-plus'
+import type { ElForm } from "element-plus";
+import { updateInf } from "@/network/network";
+import { news } from "@/utils/cartoon";
+const formSize = ref("");
 
-const formSize = ref('')
-
-const ruleFormRef = ref<InstanceType<typeof ElForm>>()
+const timeFormat = () => {
+  var date = new Date();
+  var year = date.getFullYear();
+  /* 在日期格式中，月份是从0开始的，因此要加0
+   * 使用三元表达式在小于10的前面加0，以达到格式统一  如 09:11:05
+   * */
+  var month =
+    date.getMonth() + 1 < 10
+      ? "0" + (date.getMonth() + 1)
+      : date.getMonth() + 1;
+  var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+  var hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+  var minutes =
+    date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+  var seconds =
+    date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+  // 拼接
+  return (
+    year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds
+  );
+};
+const time = ref(timeFormat());
+const ruleFormRef = ref<InstanceType<typeof ElForm>>();
 const ruleForm = reactive({
-  name: '',
-  region: '',
-  date1: '',
-  date2: '',
-  delivery: false,
-  type: [],
-  resource: '',
-  desc: '',
-})
+  bookName: "",
+  readerName: "",
+  comment: "",
+});
 
 const rules = reactive({
-  name: [
+  readerName: [
     {
       required: true,
-      message: 'Please input Activity name',
-      trigger: 'blur',
+      message: "Please input reader name",
+      trigger: "blur",
     },
     {
-      min: 3,
-      max: 5,
-      message: 'Length should be 3 to 5',
-      trigger: 'blur',
+      min: 1,
+      max: 10,
+      message: "Length should be 1 to 10",
+      trigger: "blur",
     },
   ],
-  region: [
-    {
-      required: true,
-      message: 'Please select Activity zone',
-      trigger: 'change',
-    },
-  ],
-  date1: [
-    {
-      type: 'date',
-      required: true,
-      message: 'Please pick a date',
-      trigger: 'change',
-    },
-  ],
-  date2: [
-    {
-      type: 'date',
-      required: true,
-      message: 'Please pick a time',
-      trigger: 'change',
-    },
-  ],
-  type: [
-    {
-      type: 'array',
-      required: true,
-      message: 'Please select at least one activity type',
-      trigger: 'change',
-    },
-  ],
-  resource: [
+  bookName: [
     {
       required: true,
-      message: 'Please select activity resource',
-      trigger: 'change',
+      message: "Please input book name",
+      trigger: "blur",
     },
-  ],
-  desc: [
     {
-      required: true,
-      message: 'Please input activity form',
-      trigger: 'blur',
+      min: 1,
+      max: 10,
+      message: "Length should be 1 to 10",
+      trigger: "blur",
     },
   ],
-})
+  comment: [
+    {
+      required: false,
+      message: "Please input comment",
+      trigger: "blur",
+    },
+  ],
+});
+const submit = (state) => {
+  updateInf(ruleForm.readerName, ruleForm.bookName,state, ruleForm.comment).then(
+    (res) => {
+      console.log(res)
+      if (res.code == 200) {
+        news(res.msg, "success");
+      } else {
+        news(res.msg, "error");
+      }
+    }
+  );
+};
 </script>
 
 
 <style>
-.center{
-  
-  margin:25px 160px;
-  
+.center {
+  margin: 25px 160px;
 }
 .card-header {
   display: flex;
