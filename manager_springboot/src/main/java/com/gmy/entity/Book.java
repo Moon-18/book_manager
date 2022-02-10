@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import io.swagger.annotations.ApiModel;
@@ -29,6 +30,10 @@ public class Book implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 防止精度丢失
+     */
+    @JsonSerialize(using = ToStringSerializer.class)
     @ApiModelProperty("主键")
     private Long id;
 

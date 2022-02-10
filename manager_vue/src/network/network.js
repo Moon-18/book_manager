@@ -48,12 +48,14 @@ export function listAllUser(cur,size){
   });
 }
 //2.书籍相关网络请求
+//2.1分页列出全部书籍
 export function listAllBook(cur, size) {
   return request({
     url: `/book/listAll/${cur}/${size}`, //es6语法,用反单引号拼接路径
     method: "get",
   });
 }
+//2.2增加图书
 export function createBook(name, writer, kind, allow,sumNum,comment) {
   return request({
     url: "/book/create",
@@ -70,6 +72,33 @@ export function createBook(name, writer, kind, allow,sumNum,comment) {
       curNum:sumNum,
       comment:comment
     },
+  });
+}
+//2.3更新图书
+export function updateBook(id,name, writer, kind, allow, sumNum, comment) {
+  return request({
+    url: "/book/update",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "post",
+    data: {
+      id:id,
+      name: name,
+      writer: writer,
+      kind: kind,
+      allow: allow,
+      sumNum: sumNum,
+      curNum: sumNum,
+      comment: comment,
+    },
+  });
+}
+//2.4删除图书
+export function deleteBook(id) {
+  return request({
+    url: `/book/delete/${id}`, //es6语法,用反单引号拼接路径
+    method: "delete",
   });
 }
 //3.借阅相关网络请求

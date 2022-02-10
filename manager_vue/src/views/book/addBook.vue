@@ -3,14 +3,14 @@
     <el-card class="box-card">
       <template #header>
         <div class="card-header">
-          <span>借阅图书</span>
+          <span>增加图书</span>
         </div>
       </template>
 
       <el-form
         ref="ruleFormRef"
         :model="newBook"
-        :rules="rules"
+        :rules="bookRule"
         label-width="120px"
         class="demo-ruleForm"
         :size="formSize"
@@ -32,7 +32,7 @@
           <el-switch v-model="newBook.allow"></el-switch>
         </el-form-item>
         <el-form-item label="种类" prop="kind">
-          <el-checkbox-group v-model="newBook.kind" min=0 max=1>
+          <el-checkbox-group v-model="newBook.kind" :min=0 :max=1>
             <el-checkbox label="科技" name="kind"></el-checkbox>
             <el-checkbox label="教育" name="kind"></el-checkbox>
             <el-checkbox label="文化" name="kind"></el-checkbox>
@@ -68,6 +68,8 @@ import { reactive, ref } from "vue";
 import type { ElForm } from "element-plus";
 import { createBook } from "@/network/network";
 import { news } from "@/utils/cartoon";
+import{bookRule} from'@/utils/bookRule';
+
 const formSize = ref("");
 const ruleFormRef = ref<InstanceType<typeof ElForm>>();
 const newBook = reactive({
@@ -78,46 +80,10 @@ const newBook = reactive({
   sumNum: 0,
   comment: "",
 });
-const rules = reactive({
-  name: [
-    {
-      required: true,
-      message: "Please input book name",
-      trigger: "blur",
-    },
-    {
-      min: 1,
-      max: 10,
-      message: "Length should be 1 to 10",
-      trigger: "blur",
-    },
-  ],
-  writer: [
-    {
-      required: true,
-      message: "Please input writer name",
-      trigger: "change",
-    },
-  ],
-  kind: [
-    {
-      type: [],
-      required: true,
-      message: "Please select at least one kind",
-      trigger: "change",
-    },
-  ],
-  allow: [
-    {
-      required: true,
-      message: "Please input allow",
-      trigger: "blur",
-    },
-  ],
-});
+
 //方法
 const submitForm = (object) => {
-  console.log(object);
+  // console.log(object);
   let check;
   if (newBook.allow == true) {
     check = 1;
