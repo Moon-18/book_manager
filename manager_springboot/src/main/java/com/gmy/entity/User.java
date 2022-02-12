@@ -1,6 +1,9 @@
 package com.gmy.entity;
 
 import java.io.Serializable;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -17,6 +20,10 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 防止精度丢失
+     */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     private String name;

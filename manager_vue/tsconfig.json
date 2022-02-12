@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "suppressImplicitAnyIndexErrors": true,//字符串做下标
-    "target": "esnext",
+    "target": "esnext",//原来是esnext,改为es6
     "module": "esnext",
     "strict": false,
     "jsx": "preserve",

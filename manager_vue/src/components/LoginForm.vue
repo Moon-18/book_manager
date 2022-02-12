@@ -50,6 +50,7 @@ import { useRouter } from "vue-router"; //路由
 import { loginIn } from "@/network/network";
 import { loginUser } from "@/utils/loginValidators";
 import {news} from '@/utils/cartoon'
+import store from '@/store';
 export default {
   props: {
     loginUser: {
@@ -87,6 +88,8 @@ export default {
                 //结果正确
                 news("登录成功","success")
                 router.push({ name: "Index" });
+                //vuex中保存信息
+                store.commit('setUser',res.data)
               } else {
                 news("登录失败","error")
                 // console.log("登录失败");

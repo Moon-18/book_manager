@@ -1,5 +1,6 @@
 package com.gmy.service;
 
+import com.gmy.common.lang.Result;
 import com.gmy.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.gmy.mapper.UserMapper;
@@ -17,7 +18,7 @@ import java.util.List;
 public interface IUserService extends IService<User> {
 
     //登录功能
-    public int loginIn(String account,String password,String type);
+    public Result loginIn(String account, String password, String type);
 
     //注册功能
     public int register(User user);
@@ -29,5 +30,5 @@ public interface IUserService extends IService<User> {
     public int update(User user);
 
     //分页查看全部用户信息,用于管理员管理
-    public List<User> list(int cur,int size);
+    public List<User> list(int cur, int size);
 }

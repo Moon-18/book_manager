@@ -93,26 +93,27 @@
     </el-aside>
 
     <el-container>
-      <el-header
-        style="text-align: right; font-size: 14px; background-color: #409eff"
-      >
+      <el-header>
+        <!-- el-heaer的样式 -->
+        <!-- style="text-align: right; font-size: 14px; background-color: #409eff" -->
         <div class="toolbar" style="height: 20px">
-          <el-dropdown>
-            <el-icon style="margin-right: 10px; margin-top: 1px"
-              ><avatar
-            /></el-icon>
-            <template #dropdown>
-              <el-dropdown-menu>
-                <el-dropdown-item>账号</el-dropdown-item>
-                <el-dropdown-item>登录</el-dropdown-item>
-                <el-dropdown-item>注册</el-dropdown-item>
-              </el-dropdown-menu>
-            </template>
-          </el-dropdown>
-          <span>用户中心</span>
+          <el-avatar
+            :size="45"
+            :src="imgUrl"
+            @click="drawerControl = true"
+            :fit="fit"
+          ></el-avatar>
+          <span><font color="#DCDFE6">用户中心</font></span>
         </div>
       </el-header>
-
+      <!-- 右侧抽屉 -->
+      <el-drawer
+        v-model="drawerControl"
+        title="个人信息"
+        :direction="direction"
+      >
+        <drawer />
+      </el-drawer>
       <!-- 主界面 height:1600;height:800 style="height:800;background-color:black" -->
       <el-main style="height: 800; overflow-x: hidden">
         <router-view></router-view>
@@ -124,6 +125,7 @@
 <script lang="ts" setup>
 import { request } from "@/network/request";
 import { ref, onMounted } from "vue";
+import drawer from "@/components/drawer.vue";
 import {
   Message,
   Menu as IconMenu,
@@ -134,12 +136,15 @@ import {
 } from "@element-plus/icons-vue";
 import echarts from "@/views/chart/chart-reader.vue";
 import echarts2 from "@/views/chart/chart-book.vue";
-const item = {
-  date: "2016-05-02",
-  name: "Tom",
-  address: "No. 189, Grove St, Los Angeles",
-};
-const tableData = ref(Array(20).fill(item));
+
+//控制右侧抽屉
+const drawerControl = ref(false);
+const direction = ref("rtl");
+//头像请求的url
+import { useStore } from "vuex";
+const store = useStore();
+const imgUrl=ref("http://localhost:8081/img/"+store.state.User.id+".jpg")
+// console.log(imgUrl.value)
 </script>
 
 <style src="../assets/css/normalize.css"></style>
@@ -148,8 +153,10 @@ const tableData = ref(Array(20).fill(item));
 .layout-container-demo {
   .el-header {
     position: relative;
-    background-color: #b3c0d1;
+    // background-color: #b3c0d1;
+    background: -webkit-linear-gradient(right,#409EFF,rgb(217, 236, 255)) no-repeat;
     color: var(--el-text-color-primary);
+
   }
   .el-aside {
     width: 240px;

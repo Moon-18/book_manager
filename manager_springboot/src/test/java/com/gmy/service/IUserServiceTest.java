@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 //测试的时候需要加上spring boot测试的注解
 @SpringBootTest
 class IUserServiceTest {
@@ -18,14 +19,15 @@ class IUserServiceTest {
     UserServiceImpl userService;
     @Autowired
     UserMapper userMapper;
+
     @Test
     void loginIn() {
-        String account="user";
-        String password="123456";
-        String type="user";
-        String name="user";
-        int res=userService.loginIn(account,password,type);
-        System.out.println(res);
+        String account = "user";
+        String password = "123456";
+        String type = "user";
+        String name = "user";
+//        int res=userService.loginIn(account,password,type);
+//        System.out.println(res);
 
     }
 
@@ -38,38 +40,39 @@ class IUserServiceTest {
 ////        int res=userService.register(account,password,type,name);
 ////        System.out.println(res);
         //null测试
-        String s=null;
-        if(s==null){
+        String s = null;
+        if (s == null) {
             System.out.println("空");
             return;
         }
-        if(s.equals("hello")){
+        if (s.equals("hello")) {
             System.out.println("right");
         }
     }
 
     @Test
     void retrieve() {
-        String account="user";
-        User user=userService.retrieve(account);
+        String account = "user";
+        User user = userService.retrieve(account);
 
         System.out.println(user);
     }
 
     @Test
     void update() {
-        String account="user";
-        User user=userService.retrieve(account);
+        String account = "user";
+        User user = userService.retrieve(account);
 
-        String name="user";
+        String name = "user";
 
         user.setName(name);
-        int res=userService.update(user);
+        int res = userService.update(user);
         System.out.println(res);
     }
+
     @Test
-    void list(){
-        List<User> users=userService.list(0,5);
+    void list() {
+        List<User> users = userService.list(0, 5);
         users.forEach(System.out::println);
 //        Page<User> page=new Page<>(2,1);
 //        userMapper.selectPage(page,null);

@@ -10,7 +10,7 @@
       <el-form
         ref="ruleFormRef"
         :model="newUser"
-        :rules="rules"
+        :rules="userRule"
         label-width="120px"
         class="demo-ruleForm"
         :size="formSize"
@@ -54,6 +54,7 @@ import { reactive, ref } from "vue";
 import type { ElForm } from "element-plus";
 import { register } from "@/network/network";
 import { news } from "@/utils/cartoon";
+import {userRule} from '@/utils/userRule'
 const formSize = ref("");
 const ruleFormRef = ref<InstanceType<typeof ElForm>>();
 const newUser = reactive({
@@ -62,41 +63,7 @@ const newUser = reactive({
   type: "user",
   password: "",
 });
-const rules = reactive({
-  name: [
-    {
-      required: true,
-      message: "Please input reader name",
-      trigger: "blur",
-    },
-    {
-      min: 1,
-      max: 10,
-      message: "Length should be 1 to 10",
-      trigger: "blur",
-    },
-  ],
-  account: [
-    {
-      type: "email",
-      required: true,
-      message: "Please input account",
-      trigger: "change",
-    },
-  ],
-  password: [
-    {
-      type: "",
-      required: true,
-      message: "Please select at least one kind",
-      trigger: "change",
-    },
-    {
-      min: 6,
-      max: 30,
-    },
-  ],
-});
+
 //方法
 const submitForm = () => {
   register(newUser.account, newUser.password, newUser.type, newUser.name)

@@ -34,4 +34,5 @@ public class CustomMVCConfiguration extends WebMvcConfigurerAdapter {
             ContentNegotiationConfigurer configurer) {
         configurer.favorPathExtension(false);
     }
+    
 }
