@@ -86,9 +86,9 @@
     <el-table-column prop="name" label="名称" width="150" />
     <el-table-column prop="writer" label="作者" width="220" />
     <el-table-column prop="createTime" sortable label="入馆时间" width="120" />
-    <el-table-column prop="kind" label="种类" width="110" />
-    <el-table-column prop="allow" label="权限" width="60" />
-    <el-table-column prop="comment" label="简评" width="300" />
+    <el-table-column prop="kind" label="种类" width="90" />
+    <el-table-column prop="allow" label="权限" width="50" />
+    <el-table-column prop="comment" label="简评" width="270" />
     <el-table-column prop="curNum" sortable label="现存" width="80" />
     <el-table-column prop="sumNum" sortable label="总数" width="100" />
     <el-table-column fixed="right" label="Operations" width="150">
@@ -96,13 +96,22 @@
         <el-button type="text" size="small" @click="handleClick(scope.row)"
           >编辑</el-button
         >
-        <el-button type="text" size="small" style="color: rgb(245, 108, 108)" @click="deleteOne(scope.row)"
+        <el-button
+          type="text"
+          size="small"
+          style="color: rgb(245, 108, 108)"
+          @click="deleteOne(scope.row)"
           >删除</el-button
         >
       </template>
     </el-table-column>
   </el-table>
-  <el-pagination background layout="prev, pager, next" :total="1000">
+  <el-pagination
+    background
+    layout="sizes,prev, pager, next,jumper,->,total"
+    :total="sumPage"
+    @current-change="handleCurrentChange"
+  >
   </el-pagination>
 </template>
 
@@ -113,21 +122,44 @@ import {
   ref,
   onBeforeMount,
   getCurrentInstance,
+  computed,
+  watch,
 } from "vue";
-import type { ElForm } from 'element-plus'
+import type { ElForm } from "element-plus";
 import { Calendar, Search } from "@element-plus/icons-vue";
-import { listAllBook,updateBook,deleteBook } from "@/network/network";
+import { listAllBook, updateBook, deleteBook } from "@/network/network";
 import { bookRule } from "@/utils/bookRule";
 import { news } from "@/utils/cartoon";
 import { useRouter } from "vue-router"; //路由
 //数据部分
+const sumPage = ref(20); //总页数
 const state = reactive({
+  //全部图书信息
   tableData: [],
+  curPage: 1,
 });
-listAllBook(1, 12).then((res) => {
+
+const handleCurrentChange = (currentPageNum: string) => {
+  //切换页面函数
+  // 如果能够打印出来相应的页码，就证明获取成功了。
+  console.log(currentPageNum);
+  console.log("handleCurrentChange");
+  listAllBook(currentPageNum, 10).then((res) => {
+    state.tableData = res.data;
+    // console.log(res.data)
+    // console.log(curPage.value)
+  });
+};
+
+listAllBook(1, 10).then((res) => {
   state.tableData = res.data;
   // console.log(res.data)
+  // console.log(curPage.value)
 });
+// watch(curPage, (newValue, oldValue) => {
+//   console.log("页码发生了变化");
+// });
+
 //弹窗处理
 const formLabelWidth = "140px";
 const dialogFormVisible = ref(false); //编辑 按钮对应的弹窗
@@ -159,7 +191,7 @@ const router = useRouter();
 const { ctx } = getCurrentInstance() as any;
 const submitForm = (formName: string) => {
   console.log("hello");
- let check;
+  let check;
   if (dialogForm.allow == true) {
     check = 1;
   } else {
@@ -175,14 +207,14 @@ const submitForm = (formName: string) => {
     dialogForm.comment
   ).then(
     (res) => {
-      if(res.code==200){
+      if (res.code == 200) {
         news("修改成功", "success");
         dialogFormVisible.value = false;
-        location.reload()
-      }else{
+        location.reload();
+      } else {
         news("修改失败 图书名称重复", "error");
       }
-      
+
       console.log(res);
     },
     (err) => {
@@ -191,12 +223,12 @@ const submitForm = (formName: string) => {
   );
 };
 //删除图书
-const deleteOne=(data)=>{
-  deleteBook(data.id).then(res=>{
-    news("删除成功","success")
-    location.reload()
-  })
-}
+const deleteOne = (data) => {
+  deleteBook(data.id).then((res) => {
+    news("删除成功", "success");
+    location.reload();
+  });
+};
 </script>
 
 <style>

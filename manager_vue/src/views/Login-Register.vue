@@ -29,7 +29,7 @@
       <div class="panel right-panel">
         <div class="content">
           <h3>SDU 计算机科学与技术学院 数据库课程设计</h3>
-          <p>读书破万卷,下笔如有神 —— 杜甫</p>
+          <p>@作者 如月十八 1911834200@qq.com</p>
           <button @click="signUpMode = !signUpMode" class="btn transparent">
             登录
           </button>

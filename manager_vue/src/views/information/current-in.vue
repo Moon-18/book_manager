@@ -44,7 +44,7 @@
 
         <el-form-item label="借阅状态">
           <el-row>
-            <el-col :span="24"><span>正在办理外借手续</span></el-col>
+            <el-col :span="24"><span>正在办理归还手续</span></el-col>
           </el-row>
         </el-form-item>
 
